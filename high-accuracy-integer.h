@@ -2,7 +2,7 @@
 
 // The following applies to all functions:
 // requires: all number parameters are valid (not NULL)
-// time: (n) is the number
+// time: (n) is the number (so number of digits is logn)
 
 
 struct ha_int;
@@ -29,7 +29,7 @@ struct ha_int;
 // requires: s is a valid string (not NULL)
 // effects: may allocate memory (client must call ha_int_destroy)
 //          may produce output (error message)
-// time: O(n)
+// time: O(logn)
 struct ha_int *ha_int_create(const char *s);
 
 // ha_int_destroy(num) destroys num
