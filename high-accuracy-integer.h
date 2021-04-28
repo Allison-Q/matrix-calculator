@@ -2,7 +2,7 @@
 
 // The following applies to all functions:
 // requires: all number parameters are valid (not NULL)
-// time: (n) is the number (so number of digits is logn)
+// time: (n), (m) are the numbers (so numbers of digits are logn, logm)
 
 
 struct ha_int;
@@ -35,13 +35,13 @@ struct ha_int *ha_int_create(const char *s);
 // ha_int_destroy(num) destroys num
 // effects: num is no longer valid
 // time: O(1)
-void ha_int_destroy(struct ha_int *num);
+void ha_int_destroy(struct ha_int *integer);
 
 // ha_int_print() prints the ha_int followed by an optional \n (if newline is 
 //   true)
 // effects: prints output
 // time: O(logn)
-void ha_int_print(const struct ha_int *num, bool newline);
+void ha_int_print(const struct ha_int *integer, bool newline);
 
 // ha_int_add(n, m) gives n + m
 // effects: allocates memory (caller must free)
@@ -71,3 +71,15 @@ struct ha_int *ha_int_quotient(const struct ha_int *n, const struct ha_int *m);
 // time: O(logn * logm)
 struct ha_int *ha_int_remainder(const struct ha_int *n, const struct ha_int *m);
 
+// ha_int_eq(n, m) determines if n == m
+// time: O(logn + logm)
+bool ha_int_eq(const struct ha_int *n, const struct ha_int *m);
+
+// ha_int_gt(n, m) determines if n > m
+// time: O(logn + logm)
+bool ha_int_gt(const struct ha_int *n, const struct ha_int *m);
+
+// ha_int_copy(n) gives a new ha_int, which is equal to n
+// effects: allocates memory (client must call ha_int_destroy)
+// time: O(logn)
+struct ha_int *ha_int_copy(const struct biggie *n);
