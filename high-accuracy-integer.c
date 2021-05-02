@@ -11,7 +11,6 @@
 #include <stdio.h>
 #include <string.h>
 #include "high-accuracy-integer.h"
-#include "cs136-trace.h"
 
 
 struct ha_int {
