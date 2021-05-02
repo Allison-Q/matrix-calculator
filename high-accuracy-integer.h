@@ -4,6 +4,8 @@
 // requires: all number parameters are valid (not NULL)
 // time: (n), (m) are the numbers (so numbers of digits are logn, logm)
 
+#include <stdbool.h>
+
 
 struct ha_int;
 
@@ -58,15 +60,15 @@ struct ha_int *ha_int_sub(const struct ha_int *n, const struct ha_int *m);
 // time: O(logn * logm)
 struct ha_int *ha_int_mult(const struct ha_int *n, const struct ha_int *m);
 
-// ha_int_quotient(n, m) gives quotient when n / m
-// requires: m is not zero
+// ha_int_quotient(n, m) gives quotient when n / m, or NULL if m is 0
+// note: if m is 0, an error message will be printed
 // effects: allocates memory (caller must free)
 // time: O(logn * logm)
 struct ha_int *ha_int_quotient(const struct ha_int *n, const struct ha_int *m);
 
-// ha_int_remainder(n, m) gives remainder when n / m
-// note: n = m * quotient + remainder
-// requires: m is not zero
+// ha_int_remainder(n, m) gives remainder when n / m, or NULL if m is 0
+// notes: if m is 0, an error message will be printed
+//        n = m * quotient + remainder
 // effects: allocates memory (caller must free)
 // time: O(logn * logm)
 struct ha_int *ha_int_remainder(const struct ha_int *n, const struct ha_int *m);
@@ -79,7 +81,7 @@ bool ha_int_eq(const struct ha_int *n, const struct ha_int *m);
 // time: O(logn + logm)
 bool ha_int_gt(const struct ha_int *n, const struct ha_int *m);
 
-// ha_int_copy(n) gives a new ha_int, which is equal to n
+// ha_int_copy(n) returns a new ha_int, equal to n
 // effects: allocates memory (client must call ha_int_destroy)
 // time: O(logn)
-struct ha_int *ha_int_copy(const struct biggie *n);
+struct ha_int *ha_int_copy(const struct ha_int *n);
