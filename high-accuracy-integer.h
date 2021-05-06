@@ -85,3 +85,8 @@ bool ha_int_gt(const struct ha_int *n, const struct ha_int *m);
 // effects: allocates memory (client must call ha_int_destroy)
 // time: O(logn)
 struct ha_int *ha_int_copy(const struct ha_int *n);
+
+// ha_int_to_str(n) gives the corresponding string of n
+// effects: allocates memory (caller must free)
+// time: O(logn)
+char *ha_int_to_str(const struct ha_int *n);
