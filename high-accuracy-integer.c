@@ -521,3 +521,25 @@ struct ha_int *ha_int_remainder(const struct ha_int *n,
   return new_int;
 }
 
+char *ha_int_to_str(const struct ha_int *n) {
+  assert(n);
+  int len = strlen(n->digits);
+  if (!n->sign) { // negative
+    ++len;
+  }
+  char *num = malloc((len + 1) * sizeof(char));
+  
+  int front_idx = 0;
+  if (!n->sign) {
+    num[0] = '-';
+    ++front_idx;
+  }
+  
+  int digit = strlen(n->digits) - 1; // current index of n->digits
+  for (int i = front_idx; i < len; ++i) {
+    num[i] = n->digits[digit];
+    --digit;
+  }
+  num[len] = '\0';
+  return num;
+}
