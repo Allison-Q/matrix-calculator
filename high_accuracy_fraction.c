@@ -126,19 +126,18 @@ static struct ha_frac *ha_frac_reduc(const struct ha_int *nume,
   return result;
 }
 
-struct ha_frac *ha_frac_create(const struct ha_int *numerator, 
-                               const struct ha_int *denominator) {
-  assert(numerator);
-  assert(denominator);
-  if (ha_int_sign(denominator) == 0) {
-    printf("ERROR: ");
-    ha_int_print(numerator, false);
-    printf("/");
-    ha_int_print(denominator, false);
-    printf(" is an invalid fraction");
+struct ha_frac *ha_frac_create(const char *numerator, const char *denominator) {
+  struct ha_int *nume = ha_int_create(numerator);
+  struct ha_int *denom = ha_int_create(denominator);
+  if (nume == NULL || denom == NULL || ha_int_sign(denom) == 0) {
+    printf("ERROR: %s/%s is an invalid fraction\n", numerator, denominator);
+    ha_int_destroy(nume);
+    ha_int_destroy(denom);
     return NULL;
   } else {
-    struct ha_frac *result = ha_frac_reduc(numerator, denominator);
+    struct ha_frac *result = ha_frac_reduc(nume, denom);
+    ha_int_destroy(nume);
+    ha_int_destroy(denom);
     return result;
   }
 }
@@ -204,7 +203,11 @@ struct ha_frac *ha_frac_add(const struct ha_frac *n, const struct ha_frac *m) {
   }
   ha_int_destroy(new_n_nume);
   ha_int_destroy(new_m_nume);
-  struct ha_frac *result = ha_frac_create(new_nume, new_denom);
+  char *new_nume_str = ha_int_to_str(new_nume);
+  char *new_denom_str = ha_int_to_str(new_denom);
+  struct ha_frac *result = ha_frac_create(new_nume_str, new_denom_str);
+  free(new_nume_str);
+  free(new_denom_str);
   if (n->nega && m->nega) {
     result->nega = true;
   }
@@ -234,9 +237,13 @@ struct ha_frac *ha_frac_mult(const struct ha_frac *n, const struct ha_frac *m) {
   assert(m);
   struct ha_int *new_nume = ha_int_mult(n->nume, m->nume);
   struct ha_int *new_denom = ha_int_mult(n->denom, m->denom);
-  struct ha_frac *result = ha_frac_create(new_nume, new_denom);
+  char *new_nume_str = ha_int_to_str(new_nume);
+  char *new_denom_str = ha_int_to_str(new_denom);
+  struct ha_frac *result = ha_frac_create(new_nume_str, new_denom_str);
   ha_int_destroy(new_nume);
   ha_int_destroy(new_denom);
+  free(new_nume_str);
+  free(new_denom_str);
   if (n->nega == m->nega || ha_int_sign(n->nume) == 0 
       || ha_int_sign(m->nume) == 0) {
     result->nega = false;
