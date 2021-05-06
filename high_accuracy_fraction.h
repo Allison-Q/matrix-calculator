@@ -29,13 +29,11 @@ struct ha_frac;
 //           12 34 => 6/17
 //           -1 2 => -1/2
 //           1 0 is invalid (returns NULL)
-// requires: numerator and denominator are valid ha_ints (not NULL)
 // effects: may allocate memory (client must call ha_frac_destroy)
 //          may produce output (error message)
-// time: O(n * logn * logm), where n = numerator, m = denominator; 
-// or n = denominator, m = numerator
-struct ha_frac *ha_frac_create(const struct ha_int *numerator, 
-                               const struct ha_int *denominator);
+// time: O(n * logn * logm), where n is numerator, m is denominator; 
+//       or n is denominator, m is numerator
+struct ha_frac *ha_frac_create(const char *numerator, const char *denominator);
 
 // ha_frac_destroy(num) destroys num
 // effects: num is no longer valid
@@ -45,7 +43,7 @@ void ha_frac_destroy(struct ha_frac *num);
 // ha_frac_print() prints the ha_frac followed by an optional \n (if newline is
 //   true)
 // notes: if num is an integer, then print "numerator" only
-//        if num is an fraction, then print "nunmerator/denominator"
+//        if num is a fraction, then print "numerator/denominator"
 // effects: prints output
 // time: O(log(n1) + log(n2))
 void ha_frac_print(const struct ha_frac *num, bool newline);
