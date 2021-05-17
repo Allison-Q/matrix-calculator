@@ -32,7 +32,7 @@ struct ha_comp;
 // time: O(n * logn * logm) or O(m * logn *logm) 
 // where n = max(real_nume, ima_nume), m = max(real_denom, ima_denom) 
 struct ha_comp *ha_comp_create(const char *real_nume, const char *real_denom,
-                               const char *imi_nume, const char *imi_denom);
+                               const char *ima_nume, const char *ima_denom);
 
 // ha_comp_destroy(num) destroys num
 // effects: num is no longer valid
