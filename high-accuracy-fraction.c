@@ -166,6 +166,13 @@ void ha_frac_print(const struct ha_frac *num, bool newline) {
   }
 }
 
+struct ha_frac *ha_frac_copy(const struct ha_frac *num) {
+  assert(num);
+  struct ha_frac *result = ha_frac_create_with_ha_int(num->nume, num->denom);
+  result->nega = num->nega;
+  return result;
+}
+
 struct ha_frac *ha_frac_add(const struct ha_frac *n, const struct ha_frac *m) {
   assert(n);
   assert(m);
