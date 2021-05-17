@@ -279,3 +279,10 @@ int ha_frac_cmp(const struct ha_frac *n, const struct ha_frac *m) {
   ha_frac_destroy(n_sub_m);
   return sign;
 }
+
+bool ha_frac_is_frac(const struct ha_frac *num) {
+  struct ha_int *one = ha_int_create("1");
+  bool is_frac = !ha_int_eq(num->denom, one);
+  ha_int_destroy(one);
+  return is_frac;
+}
