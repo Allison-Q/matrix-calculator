@@ -1,4 +1,4 @@
-// This module reads input and gives the corresponding ha_comp
+// This module turns the input into the corresponding ha_comp
 
 // We assume the input is in the proper form
 // examples of proper form: 
@@ -219,13 +219,8 @@ static char *denominator(const char *num) {
   return denom;
 }
 
-struct ha_comp *read_input(void) {
-  // read input
-  char *num = malloc(INT_MAX * sizeof(char));
-  scanf("%s", num);
-  const int len = strlen(num);
-  num = realloc(num, (len + 1) * sizeof(char));
-
+struct ha_comp *read_input(char *num) {
+  assert(num);
   // change to ha_comp
   char *real_part = real(num);
   char *imaginary_part = imaginary(num);
@@ -241,6 +236,5 @@ struct ha_comp *read_input(void) {
   free(real_denom);
   free(imaginary_nume);
   free(imaginary_denom);
-  free(num);
   return ha_num;
 }
