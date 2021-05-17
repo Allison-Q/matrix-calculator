@@ -1,0 +1,110 @@
+.header {
+	padding: 15px;
+	background-color: #4169E1;
+	color: white;
+	display: flex;
+	flex-direction: row;
+	position: fixed;
+	width: 100%;
+	top: 0;
+	left: 0;
+	height: 60px;
+	text-align: center;
+	align-items: center;
+	z-index: 9;
+}
+
+nav {
+	position: fixed;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	width: 12em;
+	padding: 90px 0px 15px 0px;
+	background-color: #F5F5F5;
+	z-index: 2;
+}
+
+.functions {
+	padding-left: 0;
+}
+
+nav li {
+	margin-left: -10px;
+	margin-right: 10px;
+	padding: 10px 15px 10px 0px; 
+	list-style-type: none;
+	border-radius: 5px
+}
+
+nav li a {
+	margin-left: 25px;
+	font-size: 18px;
+}
+
+nav li.active {
+	color: white;
+	background-color: #6495ED;
+
+}
+
+.reminder {
+	z-index: 1;
+	margin-left: 12em;
+	margin-top: 90px;
+	padding-top: 5px;
+	padding-left: 15px;
+}
+
+.reminder h4 {
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+
+.reminder ul {
+	margin: 10px;
+}
+
+.reminder ul li {
+	margin: 5px;
+}
+
+.calculation {
+	margin-left: 12em;
+	padding-left: 15px;
+}
+
+.calculation form {
+	padding-top: 20px;
+	padding-left: 40px;
+}
+
+.calculation .input_text {
+	box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px #6495ED; 
+	width: 300px;
+	height: 30px;
+	margin: 10px;
+} 
+
+.calculation select {
+	border: solid 1px #000;
+	margin: 10px;
+}
+
+.calculation .input_button {
+	border-radius: 2px;
+	background-color: #F5F5F5;
+}
+
+.answer_block {
+	display: flex;
+	flex-direction: row;
+	position: fixed;
+	margin-left: 12em;
+	padding-left: 60px;
+}
+
+.answer_block #answer {
+	margin: 15px;
+	padding-top: 7px;
+}
