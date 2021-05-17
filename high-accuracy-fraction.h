@@ -72,3 +72,7 @@ struct ha_frac *ha_frac_div(const struct ha_frac *n, const struct ha_frac *m);
 // ha_frac_cmp(n, m) returns 1 if n > m, 0 if n == m, -1 if n < m
 // time: O((n2) * log(n2) * log(m2)) or O((m2) * log(m2) * log(n2))
 int ha_frac_cmp(const struct ha_frac *n, const struct ha_frac *m);
+
+// ha_frac_is_frac(num) returns false if num is an integer, true otherwise
+// time: O(log(n2))
+bool ha_frac_is_frac(const struct ha_frac *num);
