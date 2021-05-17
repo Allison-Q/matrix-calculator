@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" type="text/css" href="../css/basic-layout.css">
+	<title>Matrix Calculator - Big Number</title>
+	<script type="text/javascript" src="../js/big-number-calculator.js"></script>
+</head>
+<body>
+	<div class="header">
+		<h2 class="title">Matrix Calculator - designed for linear algebra</h2>
+	</div>
+	<nav>
+		<ul class="functions">
+			<li id="big-number" class="active"><a>Big number</a></li>
+			<li id="rref"><a>RREF relevant</a></li>
+		</ul>
+	</nav>
+	<div class="reminder">
+		<h3>This is a calculator for big numebrs</h3>
+		<div class="warning">
+			<h4>Warning:</h4>
+			<ul>
+				<li>Please use the proper form (explained below)</li>
+				<li>Currently decimals are not available</li>
+			</ul>
+		</div>
+		<div class="example">
+			<h4>Proper Form Examples:</h4>
+			<ul>
+				<li>Integers: 0, 1, -12</li>
+				<li>Fractions: 1/2, -4/2</li>
+				<li>Imaginary numbers: i, -2i, (1/2)i</li>
+				<li>Complex numbers: 1+2i, -1/2+2i, 1-(1/2)i, -1/2-(1/2)i
+			</ul>
+		</div>
+	</div>
+	<div class="calculation">
+		<form action="../js/big-number-calculator.js" method="post" name="cal_form">
+			<input type="text" name="first_number" class="input_text">
+			<select>
+				<option value="add"> + </option>
+				<option value="sub"> - </option>
+				<option value="mult"> * </option>
+				<option value="div"> / </option>
+			</select>
+			<input type="text" name="second_number" class="input_text">
+			<input type="button" name="submit" value="Calculate!" class="input_button" onclick="calculate();">
+		</form>
+	</div>
+	<div class="answer_block">
+		<h4>Answer:</h4>
+		<p id="answer"></p>
+	</div>
+</body>
+</html>
