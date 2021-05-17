@@ -26,7 +26,7 @@ struct ha_int {
 // time: O(logn)
 static void print_invalid_integer(const char *s) {
   assert(s);
-  printf("Error: %s is an invalid integer", s);
+  printf("Error: %s is an invalid integer\n", s);
 }
 
 struct ha_int *ha_int_create(const char *s) {
