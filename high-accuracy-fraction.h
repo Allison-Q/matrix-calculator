@@ -48,6 +48,11 @@ void ha_frac_destroy(struct ha_frac *num);
 // time: O(log(n1) + log(n2))
 void ha_frac_print(const struct ha_frac *num, bool newline);
 
+// ha_frac_copy(num) returns a copy of num
+// effects: allocates memory(caller must call ha_frac_destroy)
+// time:O(n1 * logn1 * logn2)
+struct ha_frac *ha_frac_copy(const struct ha_frac *num);
+
 // ha_frac_add(n, m) gives n + m
 // effects: allocates memory (caller must free)
 // time: O((n2) * log(n2) * log(m2)) or O((m2) * log(m2) * log(n2))
