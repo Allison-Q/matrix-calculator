@@ -81,41 +81,9 @@ static int ha_frac_sign(const struct ha_frac *num) {
 
 void ha_comp_print(const struct ha_comp *num, bool newline) {
   assert(num);
-  int real_sign = ha_frac_sign(num->real);
-  if (real_sign) {
-    ha_frac_print(num->real, false);
-  }
-  int ima_sign = ha_frac_sign(num->ima);
-  if (ima_sign) {
-    if (ima_sign == 1 && real_sign) {
-      printf("+");
-    } else if (ima_sign == -1) {
-      printf("-");
-    }
-    bool is_frac = ha_frac_is_frac(num->ima);
-    if (is_frac) {
-      printf("(");
-    }
-    if (ha_frac_cmp_with_n(num->ima, "1") && 
-        ha_frac_cmp_with_n(num->ima, "-1")) {
-      if (ima_sign == 1) {
-        ha_frac_print(num->ima, false);
-      } else {
-        struct ha_frac *zero = ha_frac_create("0", "1");
-        struct ha_frac *posi_ima = ha_frac_sub(zero, num->ima);
-        ha_frac_print(posi_ima, false);
-        ha_frac_destroy(zero);
-        ha_frac_destroy(posi_ima);
-      }
-    }
-    if (is_frac) {
-      printf(")");
-    }
-    printf("i");
-  }
-  if (!ima_sign && !real_sign) {
-    printf("0");
-  }
+  char *num_str = ha_comp_to_str(num);
+  printf("%s", num_str);
+  free(num_str);
   if (newline) {
     printf("\n");
   }
@@ -193,4 +161,56 @@ struct ha_comp *ha_comp_div(const struct ha_comp *n, const struct ha_comp *m) {
   ha_comp_destroy(m_mult_m_conju);
   ha_comp_destroy(n_mult_m_conju);
   return ha_comp_create_with_ha_frac(new_real, new_ima);
+}
+
+char *ha_comp_to_str(const struct ha_comp *num) {
+  assert(num);
+  char *real = ha_frac_to_str(num->real);
+  char *ima = ha_frac_to_str(num->ima);
+  bool real_eq_zero = !strcmp("0", real);
+  bool ima_eq_zero = !strcmp("0", ima);
+  int termi_idx = strlen(real);
+  char *result = malloc((termi_idx + 1) * sizeof(char));
+  strcpy(result, real);
+  if (!ima_eq_zero) {
+    if (real_eq_zero) {
+      result[0] = '\0';
+      termi_idx = 0;
+    }
+    char *temp_ima = ima;
+    if (!real_eq_zero || ima[0] == '-') {
+      ++termi_idx;
+      result = realloc(result, (termi_idx + 1) * sizeof(char));
+      result[termi_idx] = '\0';
+      if (ima[0] == '-') {
+        result[termi_idx - 1] = '-';
+        temp_ima = ima + 1;
+      } else {
+        result[termi_idx - 1] = '+';
+      }
+    }
+    if (ha_frac_is_frac(num->ima)) {
+      int old_termi = termi_idx;
+      termi_idx += strlen(temp_ima) + 3;
+      result = realloc(result, (termi_idx + 1) * sizeof(char));
+      result[old_termi] = '(';
+      result[old_termi + 1] = '\0';
+      strcat(result, temp_ima);
+      result[termi_idx - 2] = ')';
+    } else {
+      if (strcmp(temp_ima, "1")) {
+        termi_idx += strlen(temp_ima) + 1;
+        result = realloc(result, (termi_idx + 1) * sizeof(char));
+        strcat(result, temp_ima);
+      } else {
+        ++termi_idx;
+        result = realloc(result, (termi_idx + 1) * sizeof(char));
+      }
+    }
+    result[termi_idx - 1] = 'i';
+    result[termi_idx] = '\0';
+  }
+  free(real);
+  free(ima);
+  return result;
 }
