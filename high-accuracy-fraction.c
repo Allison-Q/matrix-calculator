@@ -151,7 +151,7 @@ void ha_frac_destroy(struct ha_frac *num) {
 
 void ha_frac_print(const struct ha_frac *num, bool newline) {
   assert(num);
-  char *num_str = ha_frac_to_num(num);
+  char *num_str = ha_frac_to_str(num);
   printf("%s", num_str);
   free(num_str);
   if (newline) {
