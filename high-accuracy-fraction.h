@@ -81,3 +81,8 @@ int ha_frac_cmp(const struct ha_frac *n, const struct ha_frac *m);
 // ha_frac_is_frac(num) returns false if num is an integer, true otherwise
 // time: O(log(n2))
 bool ha_frac_is_frac(const struct ha_frac *num);
+
+// ha_frac_to_str(num) returns the cooresponding string of num
+// effects: allocates memory(caller must free)
+// time: O(log(n1) + log(n2))
+char *ha_frac_to_str(const struct ha_frac *num);
