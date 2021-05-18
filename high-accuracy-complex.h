@@ -75,3 +75,8 @@ struct ha_comp *ha_comp_mult(const struct ha_comp *n, const struct ha_comp *m);
 // effects: allocates memory (caller must call ha_comp_destroy)
 // time: O((n2) * log(n2) * log(m2)) or O((m2) * log(m2) * log(n2))
 struct ha_comp *ha_comp_div(const struct ha_comp *n, const struct ha_comp *m);
+
+// ha_comp_to_str(num) returns the cooresponding string of num
+// effects: allocates memory(caller must free)
+// time: O(log(n1) + log(n2))
+char *ha_comp_to_str(const struct ha_comp *num);
