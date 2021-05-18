@@ -151,16 +151,9 @@ void ha_frac_destroy(struct ha_frac *num) {
 
 void ha_frac_print(const struct ha_frac *num, bool newline) {
   assert(num);
-  if (num->nega) {
-    printf("-");
-  }
-  ha_int_print(num->nume, false);
-  struct ha_int *one = ha_int_create("1");
-  if (ha_int_cmp(one, num->denom)) {
-    printf("/");
-    ha_int_print(num->denom, false);
-  }
-  ha_int_destroy(one);
+  char *num_str = ha_frac_to_num(num);
+  printf("%s", num_str);
+  free(num_str);
   if (newline) {
     printf("\n");
   }
@@ -296,4 +289,32 @@ bool ha_frac_is_frac(const struct ha_frac *num) {
   bool is_frac = !ha_int_eq(num->denom, one);
   ha_int_destroy(one);
   return is_frac;
+}
+
+char *ha_frac_to_str(const struct ha_frac *num) {
+  assert(num);
+  char *nume = ha_int_to_str(num->nume);
+  char *denom = ha_int_to_str(num->denom);
+  int nume_len = strlen(nume);
+  char *result;
+  if (num->nega) {
+    result = malloc((nume_len + 2) * sizeof(char));
+    result[0] = '-';
+    result[1] = '\0';
+  } else {
+    result = malloc((nume_len + 1) * sizeof(char));
+    result[0] = '\0';
+  }
+  strcat(result, nume);
+  if (strcmp(denom, "1")) {
+    int result_len = strlen(result);
+    result = realloc(result, (result_len + strlen(denom) + 2) * 
+                     sizeof(char));
+    result[result_len] = '/';
+    result[result_len + 1] = '\0';
+    strcat(result, denom);
+  }
+  free(nume);
+  free(denom);
+  return result;
 }
